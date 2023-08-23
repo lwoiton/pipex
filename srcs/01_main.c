@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:03:14 by luca              #+#    #+#             */
-/*   Updated: 2023/08/18 00:39:38 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/08/23 16:23:42 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,39 +80,25 @@ int	read_from_child_process(t_pipex *args)
 	return (0);
 }
 
-char	**cmd_path(char *cmd1, char *cmd2, char **envp)
+child_process(int f1, char *cmd1)
 {
-	char	**path;
-	char	*tmp;
 
-	tmp = getenv("PATH");
-	path = ft_split(tmp, ':');
-	return (path);
 }
 
-void	pipex(int f1, int f2, char *cmd1, char *cmd2)
+void	pipex(char *envp[], int f1, int f2, char *cmd1, char *cmd2)
 {
 	int	end[2];
 	int	status;
-	pid_t	cpid1;
-	pid_t	cpid2;
+	pid_t	pid;
 
 	if (pipe(end) == -1)
 		return (-1);
-	cpid1 = fork();
-	if (cpid1 == -1)
+	pid = fork();
+	if (pid == -1)
 		return (perror("Fork: "));
-	if (cpid1 == 0)
-		handle_child1(f1, cmd1);
-	cpid2 = fork();
-	if (cpid2 == -1)
-		return (perror("Fork: "));
-	if (cpid2 == 0)
-		handle_child2(f2, cmd2);
-	close(end[0]);
-	close(end[1]);
-	waitpid(cpid1, &status, 0);
-	waitpid(cpid2, &status, 0);
+	if (pid == 0)	
+		child_process(envp, end[0], f1, cmd1);
+	parent_process(envp, end[1], f2, cmd2);
 }
 
 int	open_file(char *file, int mode)
@@ -135,6 +121,12 @@ int	main(int argc, char *argv[], char *envp[])
 	pipex(open_file(argv[1], 0), open_file(argv[4], 1), argv[2], argv[3]);
 	
 	t_pipex	*args;
+
+	while (*envp)
+	{
+		ft_printf("%s\n", *envp);
+		envp++;
+	}
 
 	args = malloc(sizeof(t_pipex));
 	if (args == NULL)

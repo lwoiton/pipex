@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:05:04 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/08/17 15:29:42 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/08/23 15:24:22 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,8 @@ typedef struct	s_pipex
 # define INT_MIN -2147483648
 
 //---------------------------Structures for pipex----------------------------//
+//---------------------------------02_utils----------------------------------//
+char	*get_paths(char *envp[], char *env_var_name);
+char	*get_cmd_path(char *cmd, char *envp[]);
 
 #endif
