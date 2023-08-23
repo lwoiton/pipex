@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:05:04 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/08/23 15:24:22 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/08/23 18:41:30 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,14 @@ typedef struct	s_pipex
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
-//---------------------------Structures for pipex----------------------------//
-//---------------------------------02_utils----------------------------------//
+//---------------------------------01_main.c---------------------------------//
+int	error_exit(char *msg);
+void	execute(char *cmd, char *envp[]);
+void	child_process(int fd_infile, char *cmd, int p_end[], char *envp[]);
+void	parent_process(int fd_outfile, char *cmd, int p_end[], char *envp[]);
+int	open_file(char *file, int mode);
+
+//--------------------------------02_utils.c---------------------------------//
 char	*get_paths(char *envp[], char *env_var_name);
 char	*get_cmd_path(char *cmd, char *envp[]);
 

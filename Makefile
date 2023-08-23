@@ -6,7 +6,7 @@
 #    By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 17:15:14 by lwoiton           #+#    #+#              #
-#    Updated: 2023/08/16 12:43:33 by lwoiton          ###   ########.fr        #
+#    Updated: 2023/08/23 18:42:05 by lwoiton          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ IFLAGS = -I$(INC_DIR) -I$(LIB_DIR)/incl
 DBUG = -g
 
 # Source files
-SRC_FILES = 01_main.c
+SRC_FILES = 01_main.c 02_utils.c
 
 
 # Object files
