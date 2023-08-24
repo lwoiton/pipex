@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:05:04 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/08/23 15:24:22 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/08/24 09:08:59 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,15 @@
 # define _GNU_SOURCE
 # include "libft.h"
 
-typedef struct	s_pipex
-{
-	char	*file_in;
-	int		fd_file_in;
-	char	*file_out;
-	int		fd_file_out;
-	char	**cmd1;
-	char	**cmd2;
-	int		fd_pipe[2];
-	pid_t	cpid;
-}	t_pipex;
+//---------------------------------01_main.c---------------------------------//
+int		error_exit(char *msg);
+int		open_file(char *file, int mode);
+void	execute(char *cmd, char *envp[]);
+void	parent_process(char *file_name, char *cmd, int *end, char *envp[]);
+void	child_process(char *file_name, char *cmd, int *end, char *envp[]);
+int		main(int argc, char *argv[], char *envp[]);
 
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
-
-//---------------------------Structures for pipex----------------------------//
-//---------------------------------02_utils----------------------------------//
+//--------------------------------02_utils.c---------------------------------//
 char	*get_paths(char *envp[], char *env_var_name);
 char	*get_cmd_path(char *cmd, char *envp[]);
-
 #endif

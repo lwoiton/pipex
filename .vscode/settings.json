@@ -10,15 +10,17 @@
         }
     ],
     "files.associations": {
-        "array": "c",
-        "string_view": "c",
-        "initializer_list": "c",
-        "ranges": "c",
-        "span": "c",
-        "utility": "c",
-        "push_swap.h": "c",
-        "random": "c",
-        "bitset": "c",
-        "regex": "c"
-    }
+		"array": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"ranges": "c",
+		"span": "c",
+		"utility": "c",
+		"push_swap.h": "c",
+		"random": "c",
+		"bitset": "c",
+		"regex": "c",
+		"libft.h": "c",
+		"wait.h": "c"
+	}
 }
