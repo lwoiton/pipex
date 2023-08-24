@@ -21,6 +21,11 @@
 		"bitset": "c",
 		"regex": "c",
 		"libft.h": "c",
-		"wait.h": "c"
+		"wait.h": "c",
+		"pipex.h": "c",
+		"error_t.h": "c",
+		"errno.h": "c",
+		"features.h": "c",
+		"types.h": "c"
 	}
 }

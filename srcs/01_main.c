@@ -6,30 +6,11 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:03:14 by luca              #+#    #+#             */
-/*   Updated: 2023/08/24 09:06:23 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/08/24 17:18:45 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-int	error_exit(char *msg)
-{
-	ft_printf("Error: %s\n", msg);
-	return (-1);
-}
-
-int	open_file(char *file, int mode)
-{
-	int	fd;
-
-	if (mode == 0)
-		fd = open(file, O_RDONLY);
-	else if (mode == 1)
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else
-		return (-1);
-	return (fd);
-}
 
 void	execute(char *cmd, char *envp[])
 {
@@ -38,30 +19,37 @@ void	execute(char *cmd, char *envp[])
 
 	cmd_args = ft_split(cmd, ' ');
 	path = get_cmd_path(cmd_args[0], envp);
-	if (path == NULL)
-	{
-		ft_printf("Error: command not found\n");
-		exit(1);
-	}
 	if (execve(path, cmd_args, envp) == -1)
 	{
-		ft_printf("Error: %s\n", strerror(errno));
+		ft_putstr_fd("Error: command not found: ", 2);
+		ft_putendl_fd(cmd_args[0], 2);
+		free_2d_array(cmd_args);
 		exit(1);
 	}
+	free_2d_array(cmd_args);
 	return ;
 }
-
+ 
 void	parent_process(char *file_name, char *cmd, int *end, char *envp[])
 {
 	int	fd_out;
+	int	wstatus;
 
-	close(end[1]);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	fd_out = open_file(file_name, 1);
-	dup2(fd_out, STDOUT_FILENO);
-	dup2(end[0], STDIN_FILENO);
-	execute(cmd, envp);
+	wait(&wstatus);
+	ft_printf("wstatus: %d\n", WEXITSTATUS(wstatus));
+	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 1)
+	{
+		perror("Error: child process exited with error");
+		exit(-1);
+	}
+	else
+	{
+		fd_out = open_file(file_name, 1);
+		dup2(fd_out, STDOUT_FILENO);
+		dup2(end[0], STDIN_FILENO);
+		close(end[1]);
+		execute(cmd, envp);
+	}
 	return ;
 }
 
@@ -69,20 +57,20 @@ void	child_process(char *file_name, char *cmd, int *end, char *envp[])
 {
 	int	fd_in;
 
-	close(end[0]);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
 	fd_in = open_file(file_name, 0);
+	if (fd_in == -1)
+		perror("E3");
 	dup2(fd_in, STDIN_FILENO);
 	dup2(end[1], STDOUT_FILENO);
+	close(end[0]);
 	execute(cmd, envp);
 	return ;
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	int end[2];
-	pid_t pid;
+	int		end[2];
+	pid_t	pid;
 
 	if (argc != 5)
 		return (error_exit("wrong number of arguments"));

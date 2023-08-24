@@ -6,11 +6,47 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 11:59:48 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/08/23 15:22:45 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/08/24 16:43:23 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
+
+int	error_exit(char *msg)
+{
+	ft_printf("Error: %s\n", msg);
+	return (-1);
+}
+
+void	free_2d_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+	return ;
+}
+
+int	open_file(char *file, int mode)
+{
+	int	fd;
+
+	if (mode == 0)
+		fd = open(file, O_RDONLY, 0777);
+	else if (mode == 1)
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fd == -1)
+	{
+		perror("Error");
+		exit(-1);
+	}
+	return (fd);
+}
 
 char	*get_paths(char *envp[], char *env_var_name)
 {
@@ -33,7 +69,7 @@ char	*get_paths(char *envp[], char *env_var_name)
 		free(env_var);
 		i++;
 	}
-	return (0);
+	return (NULL);
 
 }
 
@@ -59,6 +95,6 @@ char	*get_cmd_path(char *cmd, char *envp[])
 		i++;
 		free(cmd_path);
 	}
-	free(paths);
-	return (0);
+	free_2d_array(paths);
+	return (cmd);
 }
