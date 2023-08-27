@@ -1,3 +1,9 @@
+# Tester repos
+pipex-tester/
+
+# VIM utilities
+*.un~
+
 # Prerequisites
 *.d
 

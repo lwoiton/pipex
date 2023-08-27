@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 11:59:48 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/08/24 16:43:23 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/08/27 10:47:28 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	error_exit(char *msg)
 {
 	ft_printf("Error: %s\n", msg);
-	return (-1);
+	return (1);
 }
 
 void	free_2d_array(char **array)
@@ -43,7 +43,7 @@ int	open_file(char *file, int mode)
 	if (fd == -1)
 	{
 		perror("Error");
-		exit(-1);
+		exit(1);
 	}
 	return (fd);
 }

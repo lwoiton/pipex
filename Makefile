@@ -6,7 +6,7 @@
 #    By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 17:15:14 by lwoiton           #+#    #+#              #
-#    Updated: 2023/08/24 09:09:08 by lwoiton          ###   ########.fr        #
+#    Updated: 2023/08/25 15:25:32 by luca             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,7 @@ IFLAGS = -I$(INC_DIR) -I$(LIB_DIR)/incl
 DBUG = -g
 
 # Source files
-SRC_FILES = 01_main.c 02_utils.c
-
+SRC_FILES = 01_main_bonus.c 02_utils.c
 
 # Object files
 OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES))

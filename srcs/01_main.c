@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:03:14 by luca              #+#    #+#             */
-/*   Updated: 2023/08/24 17:18:45 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/08/25 14:30:17 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	main(int argc, char *argv[], char *envp[])
 	int		end[2];
 	pid_t	pid;
 
-	if (argc != 5)
-		return (error_exit("wrong number of arguments"));
+	if (argc < 5)
+		return (error_exit("Error: Wrong number of arguments"));
 	if (pipe(end) == -1)
 		return (error_exit("pipe error"));
 	pid = fork();
