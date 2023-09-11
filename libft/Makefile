@@ -6,7 +6,7 @@
 #    By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/21 18:52:19 by lwoiton           #+#    #+#              #
-#    Updated: 2023/08/15 16:09:21 by lwoiton          ###   ########.fr        #
+#    Updated: 2023/09/11 19:05:29 by lwoiton          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,16 +59,16 @@ SRC_FILES = ft_putstr_fd.c \
             ft_strlcpy.c \
             ft_memcpy.c \
             ft_putchar_fd.c \
-            ft_strncmp.c 
-#            ft_lstdelone.c \
-#            ft_lstsize.c \
-#            ft_lstlast.c \
-#            ft_lstclear.c \
-#            ft_lstmap.c \
-#            ft_lstnew.c \
-#            ft_lstiter.c \
-#            ft_lstadd_front.c \
-#            ft_lstadd_back.c
+            ft_strncmp.c \
+            ft_lstdelone.c \
+            ft_lstsize.c \
+            ft_lstlast.c \
+            ft_lstclear.c \
+            ft_lstmap.c \
+            ft_lstnew.c \
+            ft_lstiter.c \
+            ft_lstadd_front.c \
+            ft_lstadd_back.c
 
 # Object files
 OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES))

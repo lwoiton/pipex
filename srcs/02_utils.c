@@ -6,11 +6,11 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 11:59:48 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/09/11 17:38:15 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/09/11 19:22:33 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex.h>
+#include "pipex.h"
 
 int	error_exit(char *msg)
 {
@@ -43,7 +43,7 @@ int	open_file(char *file, int mode)
 	if (fd == -1)
 	{
 		perror("Error");
-		exit(1);
+		exit(-1);
 	}
 	return (fd);
 }

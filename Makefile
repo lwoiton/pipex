@@ -6,54 +6,45 @@
 #    By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 17:15:14 by lwoiton           #+#    #+#              #
-#    Updated: 2023/08/25 15:25:32 by luca             ###   ########.fr        #
+#    Updated: 2023/09/11 19:11:22 by lwoiton          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Output files
 NAME = pipex
+BNS_NAME = pipex
 
 # Directories
 SRC_DIR = srcs
-BONUS_DIR = bonus
-OBJ_DIR = objs
-BONUS_OBJ_DIR = $(OBJ_DIR)/$(BONUS_DIR)
 INC_DIR = incl
-LIB_DIR = libft
 
 # Compiler and flags
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-IFLAGS = -I$(INC_DIR) -I$(LIB_DIR)/incl
+IFLAGS = -Iincl -Ilibft/incl
 DBUG = -g
 
-# Source files
-SRC_FILES = 01_main_bonus.c 02_utils.c
+# Library
+LIBFT = libft/libft.a
 
-# Object files
-OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
+# Source files
+SRC_FILES = srcs/01_main.c srcs/02_utils.c
+
+# Source files for bonus
+BNS_FILES = srcs/01_main_bonus.c srcs/02_utils.c
 
 # Header files
-HEADER_FILES = $(wildcard $(INC_DIR)/*.h)
+HEADER_FILES = pipex.h
 
-# Libraries
-LIBFT = $(LIB_DIR)/libft.a
+BNS_HEADER_FILES = pipex_bonus.h
 
-# Default targets
-all: $(NAME)
-bonus: $(BONUS_NAME)
+# Default rule to build the pipex executable
+all: $(SRC_FILES) $(LIBFT)
+	$(CC) $(CFLAGS) $(IFLAGS) $(LIBFT) $(SRC_FILES) -Llibft -lft -o pipex
 
-# Rule to build the pipex executable
-$(NAME): $(OBJ_FILES) $(LIBFT)
-	$(CC) $(CFLAGS) $(IFLAGS) -g -o $@ $^
-
-# Rule to build object files and include header dependencies
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER_FILES) | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(IFLAGS) $(DBUG) -c -o $@ $<
-
-# Rule to create the object directory
-$(OBJ_DIR):
-	mkdir -p $@
+# Bonus rule to build the pipex executable
+bonus: $(BNS_FILES) $(LIBFT)
+	$(CC) $(CFLAGS) $(IFLAGS) $(LIBFT) $(BNS_FILES) -Llibft -lft -o pipex
 
 # Rule to build the libft library
 $(LIBFT):
@@ -62,7 +53,7 @@ $(LIBFT):
 # Clean generated files
 clean:
 	$(MAKE) -C $(LIB_DIR) clean
-	rm -rf $(OBJ_DIR)
+	rm -f $(SRC_DIR)/%.o
 
 # Clean everything
 fclean: clean

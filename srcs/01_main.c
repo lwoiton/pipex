@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:03:14 by luca              #+#    #+#             */
-/*   Updated: 2023/09/11 17:38:28 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/09/11 19:26:41 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,12 @@ void	execute(char *cmd, char *envp[])
 void	parent_process(char *file_name, char *cmd, int *end, char *envp[])
 {
 	int	fd_out;
-	int	wstatus;
 
-	wait(&wstatus);
-	ft_printf("wstatus: %d\n", WEXITSTATUS(wstatus));
-	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == 1)
-	{
-		perror("Error: child process exited with error");
-		exit(-1);
-	}
-	else
-	{
-		fd_out = open_file(file_name, 1);
-		dup2(fd_out, STDOUT_FILENO);
-		dup2(end[0], STDIN_FILENO);
-		close(end[1]);
-		execute(cmd, envp);
-	}
+	fd_out = open_file(file_name, 1);
+	dup2(fd_out, STDOUT_FILENO);
+	dup2(end[0], STDIN_FILENO);
+	close(end[1]);
+	execute(cmd, envp);
 	return ;
 }
 
@@ -58,8 +47,6 @@ void	child_process(char *file_name, char *cmd, int *end, char *envp[])
 	int	fd_in;
 
 	fd_in = open_file(file_name, 0);
-	if (fd_in == -1)
-		perror("E3");
 	dup2(fd_in, STDIN_FILENO);
 	dup2(end[1], STDOUT_FILENO);
 	close(end[0]);
@@ -72,8 +59,9 @@ int	main(int argc, char *argv[], char *envp[])
 	int		end[2];
 	pid_t	pid;
 
-	if (argc < 5)
-		return (error_exit("Error: Wrong number of arguments"));
+	if (argc != 5)
+		return (error_exit("Incorrect number of arguments\n\n\
+Usage: ./pipex <infile> <cmd1> <cmd2> <outfile>"));
 	if (pipe(end) == -1)
 		return (error_exit("pipe error"));
 	pid = fork();
