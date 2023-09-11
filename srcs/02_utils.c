@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 11:59:48 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/08/27 10:47:28 by luca             ###   ########.fr       */
+/*   Updated: 2023/09/11 17:38:15 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*get_paths(char *envp[], char *env_var_name)
 		while (envp[i][j] && envp[i][j] != '=')
 			j++;
 		env_var = ft_substr(envp[i], 0, j);
-		if (ft_strncmp(env_var , env_var_name, ft_strlen(env_var_name)) == 0)
+		if (ft_strncmp(env_var, env_var_name, ft_strlen(env_var_name)) == 0)
 		{
 			free(env_var);
 			return (envp[i] + j + 1);
@@ -70,7 +70,6 @@ char	*get_paths(char *envp[], char *env_var_name)
 		i++;
 	}
 	return (NULL);
-
 }
 
 char	*get_cmd_path(char *cmd, char *envp[])

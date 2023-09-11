@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:03:14 by luca              #+#    #+#             */
-/*   Updated: 2023/08/25 14:30:17 by luca             ###   ########.fr       */
+/*   Updated: 2023/09/11 17:38:28 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	execute(char *cmd, char *envp[])
 	free_2d_array(cmd_args);
 	return ;
 }
- 
+
 void	parent_process(char *file_name, char *cmd, int *end, char *envp[])
 {
 	int	fd_out;
