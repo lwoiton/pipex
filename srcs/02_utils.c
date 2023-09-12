@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 11:59:48 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/09/12 14:55:04 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/09/12 15:12:29 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	open_file(char *file, int mode)
 	int	fd;
 
 	if (mode == 0)
-		fd = open(file, O_RDONLY, 0777);
+		fd = open(file, O_RDONLY, 0644);
 	else if (mode == 1)
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
