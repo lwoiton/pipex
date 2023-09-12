@@ -6,12 +6,12 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:05:04 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/09/11 19:01:30 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/09/12 11:29:21 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <sys/types.h>
 # include <sys/wait.h>

@@ -6,7 +6,7 @@
 #    By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/11 17:15:14 by lwoiton           #+#    #+#              #
-#    Updated: 2023/09/11 19:11:22 by lwoiton          ###   ########.fr        #
+#    Updated: 2023/09/12 13:48:21 by lwoiton          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ BNS_NAME = pipex
 # Directories
 SRC_DIR = srcs
 INC_DIR = incl
+LIB_DIR = libft
 
 # Compiler and flags
 CC = gcc
@@ -40,11 +41,11 @@ BNS_HEADER_FILES = pipex_bonus.h
 
 # Default rule to build the pipex executable
 all: $(SRC_FILES) $(LIBFT)
-	$(CC) $(CFLAGS) $(IFLAGS) $(LIBFT) $(SRC_FILES) -Llibft -lft -o pipex
+	$(CC) $(CFLAGS) $(IFLAGS) $(LIBFT) $(DBUG) $(SRC_FILES) -Llibft -lft -o pipex
 
 # Bonus rule to build the pipex executable
 bonus: $(BNS_FILES) $(LIBFT)
-	$(CC) $(CFLAGS) $(IFLAGS) $(LIBFT) $(BNS_FILES) -Llibft -lft -o pipex
+	$(CC) $(CFLAGS) $(IFLAGS) $(LIBFT) $(DBUG) $(BNS_FILES) -Llibft -lft -o pipex
 
 # Rule to build the libft library
 $(LIBFT):

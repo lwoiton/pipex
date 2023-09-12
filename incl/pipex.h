@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:05:04 by lwoiton           #+#    #+#             */
-/*   Updated: 2023/09/11 18:26:14 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/09/12 11:29:46 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 void	execute(char *cmd, char *envp[]);
 void	parent_process(char *file_name, char *cmd, int *end, char *envp[]);
 void	child_process(char *file_name, char *cmd, int *end, char *envp[]);
-int	        main(int argc, char *argv[], char *envp[]);
+int		main(int argc, char *argv[], char *envp[]);
 
 //--------------------------------02_utils.c---------------------------------//
 int		error_exit(char *msg);

@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:03:14 by luca              #+#    #+#             */
-/*   Updated: 2023/09/11 19:24:47 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/09/12 14:54:41 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	execute(char *cmd, char *envp[])
 	path = get_cmd_path(cmd_args[0], envp);
 	if (execve(path, cmd_args, envp) == -1)
 	{
-		ft_putstr_fd("Error: command not found: ", 2);
-		ft_putendl_fd(cmd_args[0], 2);
+		ft_putstr_fd(cmd_args[0], 2);
+		ft_putendl_fd(": command not found", 2);
 		free_2d_array(cmd_args);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	free_2d_array(cmd_args);
 	return ;
@@ -41,7 +41,7 @@ void	read_terminal_input(char *limiter, int *end)
 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
 		{
 			free(line);
-			exit(0);
+			exit(EXIT_SUCCESS);
 		}
 		ft_putstr_fd(line, end[1]);
 		free(line);
@@ -55,10 +55,10 @@ void	pipe_terminal_input(char *argv[])
 	pid_t	pid;
 
 	if (pipe(end) == -1)
-		exit(1);
+		error_exit("pipe() failed\n");
 	pid = fork();
 	if (pid == -1)
-		exit(1);
+		error_exit("fork() failed\n");
 	if (!pid)
 		read_terminal_input(argv[2], end);
 	else
@@ -76,10 +76,10 @@ void	pipe_to_pipe(char *cmd, char *envp[])
 	pid_t	pid;
 
 	if (pipe(end) == -1)
-		return ;
+		error_exit("pipe() failed\n");
 	pid = fork();
 	if (pid == -1)
-		return ;
+		error_exit("fork() failed\n");
 	if (pid == 0)
 	{
 		dup2(end[1], STDOUT_FILENO);
@@ -100,11 +100,13 @@ int	main(int argc, char *argv[], char *envp[])
 	int		index;
 
 	if (argc < 5)
-		return (error_exit("Error: Not enough arguments (min: 5)"));
+		error_exit("Not enough arguments (min: 5)\n\n\
+Usage: ./pipex <infile> <cmd1> <cmd2> ... <cmdn> <outfile>");
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
 	{
 		if (argc < 6)
-			return (error_exit("Error: Not enough arguments (min: 6)"));
+			error_exit("Not enough arguments (min: 6)\n\n\
+Usage: ./pipex here_doc <LMITER> <cmd1> <cmd2> ... <cmdn> <outfile>");
 		index = 3;
 		fd_out = open_file(argv[argc - 1], 1);
 		pipe_terminal_input(argv);

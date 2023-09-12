@@ -1,11 +1,13 @@
 {
     "configurations": [
+		
+
         {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/pipex",
-            "args": ["in", "ls -l", "wc -l", "out"],
+            "args": ["in", "fuck", "wc -l", "out"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
@@ -21,7 +23,24 @@
                     "description": "Set Disassembly Flavor to Intel",
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
-                }
+                },
+				{
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				},
+				{
+					// https://sourceware.org/gdb/onlinedocs/gdb/Forks.html
+					"description": "Fork follows Child process",
+					"text": "set follow-fork-mode child",
+					"ignoreFailures": true
+				},
+				{
+					// https://sourceware.org/gdb/onlinedocs/gdb/Forks.html
+					"description": "Fork will keep the other process attached to debugger",
+					"text": "set detach-on-fork off",
+					"ignoreFailures": true
+				}
             ]
         }
     ],

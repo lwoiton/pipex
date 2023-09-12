@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:03:14 by luca              #+#    #+#             */
-/*   Updated: 2023/09/11 19:26:41 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/09/12 14:52:07 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	execute(char *cmd, char *envp[])
 	path = get_cmd_path(cmd_args[0], envp);
 	if (execve(path, cmd_args, envp) == -1)
 	{
-		ft_putstr_fd("Error: command not found: ", 2);
-		ft_putendl_fd(cmd_args[0], 2);
+		ft_putstr_fd(cmd_args[0], 2);
+		ft_putendl_fd(": command not found", 2);
 		free_2d_array(cmd_args);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	free_2d_array(cmd_args);
 	return ;
@@ -33,7 +33,11 @@ void	execute(char *cmd, char *envp[])
 void	parent_process(char *file_name, char *cmd, int *end, char *envp[])
 {
 	int	fd_out;
+	int	wstatus;
 
+	wait(&wstatus);
+	if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) == EXIT_FAILURE)
+		exit(EXIT_FAILURE);
 	fd_out = open_file(file_name, 1);
 	dup2(fd_out, STDOUT_FILENO);
 	dup2(end[0], STDIN_FILENO);
@@ -60,15 +64,15 @@ int	main(int argc, char *argv[], char *envp[])
 	pid_t	pid;
 
 	if (argc != 5)
-		return (error_exit("Incorrect number of arguments\n\n\
-Usage: ./pipex <infile> <cmd1> <cmd2> <outfile>"));
+		error_exit("Incorrect number of arguments\n\n\
+Usage: ./pipex <infile> <cmd1> <cmd2> <outfile>");
 	if (pipe(end) == -1)
-		return (error_exit("pipe error"));
+		error_exit("pipe() failed\n");
 	pid = fork();
 	if (pid == -1)
-		return (error_exit("fork error"));
+		error_exit("fork() failed\n");
 	if (pid == 0)
 		child_process(argv[1], argv[2], end, envp);
 	parent_process(argv[4], argv[3], end, envp);
-	return (0);
+	return (EXIT_SUCCESS);
 }
