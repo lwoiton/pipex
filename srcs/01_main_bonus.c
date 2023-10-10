@@ -6,7 +6,7 @@
 /*   By: lwoiton <lwoiton@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:03:14 by luca              #+#    #+#             */
-/*   Updated: 2023/09/12 14:54:41 by lwoiton          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:57:20 by lwoiton          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	read_terminal_input(char *limiter, int *end)
 	while (1)
 	{
 		line = get_next_line(STDIN_FILENO);
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0 && ft_strlen(line) - 1 == ft_strlen(limiter))
 		{
 			free(line);
 			exit(EXIT_SUCCESS);
